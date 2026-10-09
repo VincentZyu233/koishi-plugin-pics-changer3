@@ -19,5 +19,8 @@
   },
   "dependencies": {
     "koishi-plugin-ffmpeg": "^1.1.0"
+  },
+  "devDependencies": {
+    "@koishijs/plugin-help": "^2.4.6"
   }
 }
