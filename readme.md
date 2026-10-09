@@ -8,7 +8,9 @@
 
 引用图片并发送 `右对称`，保留右半边并镜像到左半边；开启 `enableQuote` 时，机器人会引用触发指令的消息回复。
 
-![右对称处理效果与引用回复示例](docs/images/preview/preview.png)
+![Koishi 图片的右对称处理效果与引用回复示例](docs/images/preview/preview.koishi.png)
+
+![Zimin 图片的右对称处理效果与引用回复示例](docs/images/preview/preview.zimin.png)
 
 ## 配置
 
