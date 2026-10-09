@@ -1,10 +1,12 @@
-import { Context, Session, h } from 'koishi'
-import type { Config } from './config'
-import { } from 'koishi-plugin-ffmpeg' // 声明依赖 ffmpeg 服务
-import * as fs from 'node:fs/promises'
-import * as path from 'node:path'
-import * as os from 'node:os'
 import * as crypto from 'node:crypto' // 使用 Node.js 原生 crypto 模块
+import * as fs from 'node:fs/promises'
+import * as os from 'node:os'
+import * as path from 'node:path'
+
+import { Context, Session, h } from 'koishi'
+import { } from 'koishi-plugin-ffmpeg' // 声明依赖 ffmpeg 服务
+
+import type { Config } from './config'
 
 export { Config } from './config'
 
