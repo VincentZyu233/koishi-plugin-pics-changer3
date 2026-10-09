@@ -13,7 +13,7 @@ export interface Config {
 
 export const Config: Schema<Config> = Schema.intersect([
   Schema.object({
-    enableQuote: Schema.boolean().default(false).description('返回图片时引用触发指令的原始消息'),
+    enableQuote: Schema.boolean().default(false).description('发送图片或文字消息时引用触发指令的原始消息'),
     promptTimeout: Schema.number().default(30).description('等待用户发送图片的超时时间 (秒)')
   }).description('基础设置'),
   Schema.object({

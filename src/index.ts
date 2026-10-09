@@ -30,6 +30,10 @@ export function apply(ctx: Context, config: Config) {
   async function handleSymmetry(session: Session | undefined, commandType: string, inputImages: string[]) {
     if (!session) return
 
+    const withQuote = (content: string | h) => config.enableQuote && session.messageId
+      ? [h.quote(session.messageId), content]
+      : content
+
     let currentImages = [...inputImages]
 
     // 优先检查引用消息中的图片
@@ -44,10 +48,10 @@ export function apply(ctx: Context, config: Config) {
 
     // 如果没有图片参数且没有引用消息中的图片，则交互式获取
     if (currentImages.length === 0) {
-      await session.send('请发送图片或动图')
+      await session.send(withQuote('请发送图片或动图'))
       const promptResult = await session.prompt(config.promptTimeout * 1000)
       if (!promptResult) {
-        return '未收到图片'
+        return withQuote('未收到图片')
       }
       currentImages = [promptResult]
     }
@@ -61,22 +65,20 @@ export function apply(ctx: Context, config: Config) {
     }
 
     if (allImages.length === 0) {
-      return '请发送有效的图片'
+      return withQuote('请发送有效的图片')
     }
 
     // 成功获取到图片元素数组后，调用修改函数
     try {
       const results = await changeimg(allImages, commandType)
       for (const result of results) {
-        await session.send(config.enableQuote && session.messageId
-          ? [h.quote(session.messageId), result]
-          : result)
+        await session.send(withQuote(result))
       }
     } catch (error) {
       if (error instanceof Error) {
-        return `处理失败: ${error.message}`
+        return withQuote(`处理失败: ${error.message}`)
       }
-      return `处理失败: 发生了未知错误`
+      return withQuote('处理失败: 发生了未知错误')
     }
   }
 
