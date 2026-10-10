@@ -167,25 +167,25 @@ export function apply(ctx: Context, config: Config) {
 
   // 上对称 (wc -> wm)：保留上半部不动，翻转贴到下半部
   async function UPsymmetry(input: Buffer, isGif: boolean): Promise<Buffer> {
-    const filter = 'split[main][flip];[flip]crop=iw:ih/2:0:0,vflip[flipped];[main][flipped]overlay=0:H/2'
+    const filter = 'format=rgba,split[main][flip];[flip]crop=iw:ih/2:0:0,vflip[flipped];[main][flipped]overlay=0:H/2'
     return runFFmpegWithFile(input, filter, isGif)
   }
 
   // 下对称 (wm -> wc)：保留下半部不动，翻转贴到上半部
   async function DOWNsymmetry(input: Buffer, isGif: boolean): Promise<Buffer> {
-    const filter = 'split[main][flip];[flip]crop=iw:ih/2:0:ih/2,vflip[flipped];[main][flipped]overlay=0:0'
+    const filter = 'format=rgba,split[main][flip];[flip]crop=iw:ih/2:0:ih/2,vflip[flipped];[main][flipped]overlay=0:0'
     return runFFmpegWithFile(input, filter, isGif)
   }
 
   // 左对称 (ba -> bd)：保留左半部不动，翻转贴到右半部
   async function LEFTsymmetry(input: Buffer, isGif: boolean): Promise<Buffer> {
-    const filter = 'split[main][flip];[flip]crop=iw/2:ih:0:0,hflip[flipped];[main][flipped]overlay=W/2:0'
+    const filter = 'format=rgba,split[main][flip];[flip]crop=iw/2:ih:0:0,hflip[flipped];[main][flipped]overlay=W/2:0'
     return runFFmpegWithFile(input, filter, isGif)
   }
 
   // 右对称 (ab -> db)：保留右半部不动，翻转贴到左半部
   async function RIGHTsymmetry(input: Buffer, isGif: boolean): Promise<Buffer> {
-    const filter = 'split[main][flip];[flip]crop=iw/2:ih:iw/2:0,hflip[flipped];[main][flipped]overlay=0:0'
+    const filter = 'format=rgba,split[main][flip];[flip]crop=iw/2:ih:iw/2:0,hflip[flipped];[main][flipped]overlay=0:0'
     return runFFmpegWithFile(input, filter, isGif)
   }
 
