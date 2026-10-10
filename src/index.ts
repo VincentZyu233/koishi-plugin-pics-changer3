@@ -156,7 +156,7 @@ export function apply(ctx: Context, config: Config) {
       }
 
       // 将 Buffer 转换为带 mime 头的标准 Data URL 字符串
-      const mime = file.mime || (isGif ? 'image/gif' : 'image/png')
+      const mime = isGif ? 'image/gif' : 'image/png'
       const dataUrl = `data:${mime};base64,${outputBuffer.toString('base64')}`
 
       outputElements.push(h.image(dataUrl))
@@ -214,6 +214,7 @@ export function apply(ctx: Context, config: Config) {
         builder.outputOption('-filter_complex', filter)
         builder.outputOption('-vframes', '1')
         builder.outputOption('-f', 'image2')
+        builder.outputOption('-c:v', 'png')
       }
 
       // 3. 运行并返回内存 Buffer
